@@ -1,50 +1,22 @@
-# React + TypeScript + Vite
+## Тестовое задание VNE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Для запуска приложения локально скачайте репозиторий и выполните в терминале следующие команды:
+- `npm install`
+- `npm run dev`
 
-Currently, two official plugins are available:
+### Задание
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Предоставить пользователю два поля, в которых нужно указывать название городов. Если установлены оба значения, то под полями вывести расстояние между этими городами по прямой с точностью до 10км.
+Для реализации необходимо:
+- Подключить любое стороннее API для получения координат городов.
+- Подключить любое стороннее API для отображения подсказок в полях ввода городов. 
+- Расчет расстояния произвести самостоятельно на основе полученных данных о координатах (необходимо учесть, что Земля- это геоид).
+- Использовать react + ts.
 
-## Expanding the ESLint configuration
+### Мои комментарии к решению
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Для поиска списка городов по подстроке нашёл API от DaData, в присылаемом объекте города сразу же есть координаты, оказалось очень удобно.
 
-- Configure the top-level `parserOptions` property like this:
+2. По поводу самого расчёта расстояния, везде находил расчёт только таким способом (по формуле версинуса). Это способ расчёта дуги на сфере по координатам, и, так как земля - это геоид, то в примерах берётся среднее значение радиуса земли. Получается, при таком расчёте погрешность может быть более 10 км, как требуется в задании. 
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+3. Всего затратил на работу 6 часов, включая поиск API.
